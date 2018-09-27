@@ -24,7 +24,7 @@ func TestSum(t *testing.T) {
 		assertEquals(t, Sum(numbers), 6, numbers)
 	})
 
-	t.Run("", func(t *testing.T) {
+	t.Run("sum many collections", func(t *testing.T) {
 		got := SumAll([]int{1, 2}, []int{0, 9})
 		want := []int{3, 9}
 
