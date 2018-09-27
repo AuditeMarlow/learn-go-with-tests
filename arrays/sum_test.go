@@ -7,6 +7,8 @@ import (
 
 func TestSum(t *testing.T) {
 	assertEquals := func(t *testing.T, got, want int, numbers []int) {
+		t.Helper()
+
 		if got != want {
 			t.Errorf("got '%d', want '%d', given '%v'", got, want, numbers)
 		}
@@ -23,22 +25,28 @@ func TestSum(t *testing.T) {
 
 		assertEquals(t, Sum(numbers), 6, numbers)
 	})
+}
 
-	t.Run("sum many collections' trails", func(t *testing.T) {
+func TestSumAllTrails(t *testing.T) {
+	checkSums := func(t *testing.T, got, want []int) {
+		t.Helper()
+
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got '%v', want '%v'", got, want)
+		}
+	}
+
+	t.Run("make the sums of tails", func(t *testing.T) {
 		got := SumAllTrails([]int{1, 2}, []int{0, 9})
 		want := []int{2, 9}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got '%v', want '%v'", got, want)
-		}
+		checkSums(t, got, want)
 	})
 
-	t.Run("safely sum up empty slices", func(t *testing.T) {
+	t.Run("safely sum empty slices", func(t *testing.T) {
 		got := SumAllTrails([]int{}, []int{8, 2, 7})
 		want := []int{0, 9}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got '%v', want '%v'", got, want)
-		}
+		checkSums(t, got, want)
 	})
 }
