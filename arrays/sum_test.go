@@ -32,4 +32,13 @@ func TestSum(t *testing.T) {
 			t.Errorf("got '%v', want '%v'", got, want)
 		}
 	})
+
+	t.Run("safely sum up empty slices", func(t *testing.T) {
+		got := SumAllTrails([]int{}, []int{8, 2})
+		want := []int{0, 10}
+
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got '%v', want '%v'", got, want)
+		}
+	})
 }
