@@ -3,22 +3,22 @@ package shapes
 import "math"
 
 type Rectangle struct {
-	Width  float64
-	Height float64
+	Width  int
+	Height int
 }
 
 type Circle struct {
-	Radius float64
+	Radius int
 }
 
-func Perimeter(rectangle Rectangle) float64 {
+func Perimeter(rectangle Rectangle) int {
 	return 2 * (rectangle.Width + rectangle.Height)
 }
 
-func (r Rectangle) Area() float64 {
+func (r Rectangle) Area() int {
 	return r.Width * r.Height
 }
 
-func (c Circle) Area() float64 {
-	return math.Pi * c.Radius * c.Radius
+func (c Circle) Area() int {
+	return int(math.Pi * float64(c.Radius) * float64(c.Radius))
 }
