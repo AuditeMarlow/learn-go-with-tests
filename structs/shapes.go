@@ -2,6 +2,10 @@ package shapes
 
 import "math"
 
+type Shape interface {
+	Area() int
+}
+
 type Rectangle struct {
 	Width  int
 	Height int
