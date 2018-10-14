@@ -20,12 +20,13 @@ func TestSearch(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	var definition = "This is just a test."
-
 	dictionary := Dictionary{}
-	dictionary.Add("test", definition)
+	word := "test"
+	definition := "This is just a test."
 
-	assertDefinition(t, dictionary, "test", "This is just a test.")
+	dictionary.Add(word, definition)
+
+	assertDefinition(t, dictionary, word, definition)
 }
 
 func assertEquals(t *testing.T, got, want string) {
