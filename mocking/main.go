@@ -14,12 +14,6 @@ type Sleeper interface {
 	Sleep()
 }
 
-type DefaultSleeper struct{}
-
-func (s *DefaultSleeper) Sleep() {
-	time.Sleep(1 * time.Second)
-}
-
 type ConfigurableSleeper struct {
 	duration time.Duration
 	sleep    func(time.Duration)
@@ -31,14 +25,25 @@ func (c *ConfigurableSleeper) Sleep() {
 
 func Countdown(writer io.Writer, sleeper Sleeper) {
 	for i := countdownStart; i > 0; i-- {
-		fmt.Fprintln(writer, i)
+		_, err := fmt.Fprintln(writer, i)
+
+		panicOnError(err)
+
 		sleeper.Sleep()
 	}
 
-	fmt.Fprint(writer, finalWord)
+	_, err := fmt.Fprint(writer, finalWord)
+
+	panicOnError(err)
+}
+
+func panicOnError(err error) {
+	if err != nil {
+		panic("could not write to output")
+	}
 }
 
 func main() {
-	sleeper := &DefaultSleeper{}
+	sleeper := &ConfigurableSleeper{1 * time.Second, time.Sleep}
 	Countdown(os.Stdout, sleeper)
 }
